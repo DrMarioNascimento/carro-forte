@@ -3035,7 +3035,7 @@ function mostrarPlacar(){
   var R8=respostas[8]||[],fin=PERG8.map(function(q,i){var r=R8[i],sua=r?(r.confianca==='naosei'||r.opcao===null?'Não sei':q.opcoes[r.opcao]):'—',pt=r?pontos(r):{pts:0,max:4*q.peso};
     return '<div class="debate-fala"><b>'+T(q.pergunta)+'</b><br>Certa: '+T(q.opcoes[0])+'<br>Sua: '+T(sua)+' '+(r&&r.certa?'✓':'✗')+' <span style="color:#efc878">('+fmt(pt.pts)+' de '+fmt(pt.max)+')</span></div>'}).join('');
   var pct=max?Math.max(0,Math.round(tot/max*100)):0,veredito=pct>=70?'Investigação de auditoria.':pct>=40?'Boa leitura, com lacunas.':pct>0?'Muita coisa ficou no escuro.':'O impostor ganhou esta.';
-  $('#fechoCorpo').innerHTML='<p class="kicker">Fim do jogo · placar</p><h1 id="fechoTitulo">'+fmt(tot)+' de '+fmt(max)+' pontos</h1>'+
+  $('#fechoCorpo').innerHTML='<p class="kicker">Fim do jogo · placar'+(!MP&&window.mosaicoNomeSolo&&mosaicoNomeSolo()?' de '+mosaicoNomeSolo():'')+'</p><h1 id="fechoTitulo">'+fmt(tot)+' de '+fmt(max)+' pontos</h1>'+
     '<p class="lede term" style="font-size:15px">'+veredito+'</p>'+
     '<p class="lede">Nesta partida, o impostor era '+na(IMP).replace(/^o /,'o ')+'. Quem ajudou sem saber: '+na(AJ)+'. '+(FALSO?T('O falso culpado da manhã: {n:tecnico}.'):'Desta vez, o caso perfeito demais era o certo.')+'</p>'+
     '<h2>As quatro perguntas finais</h2><div class="debate-falas">'+fin+'</div>'+
@@ -3729,5 +3729,23 @@ var obs=new MutationObserver(varrer);obs.observe(document.body,{childList:true,s
 </script>
 <audio id="somRadio" src="media/radio-estatica.mp3" preload="auto"></audio>
 <script src="maquete.js?v=20261007a"></script>
+<!-- 15/10/2026: entrada padronizada no solo — nome + Bem-vindo/Bem-vinda/Tanto faz, como na sala do grupo -->
+<style>.solo-nome{display:block;margin:0 0 14px;text-align:left}.solo-nome span{display:block;margin-bottom:6px;font:700 12px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;opacity:.85}.solo-nome input{box-sizing:border-box;width:100%;min-height:48px;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.45);color:inherit;font:600 17px/1.2 system-ui,sans-serif}.solo-nome-aviso{margin:6px 0 0;color:#ffb4a4;font:600 14px/1.3 system-ui,sans-serif}.solo-nome-aviso[hidden]{display:none}</style>
+<script>
+(function(){
+  var F=document.getElementById('oiFormas'); if(!F) return;
+  var K='mosaico:nome', v=''; try{v=localStorage.getItem(K)||'';}catch(e){}
+  var w=document.createElement('label'); w.className='solo-nome';
+  w.innerHTML='<span>Seu nome</span><input type="text" maxlength="24" autocomplete="nickname" placeholder="Como a mesa vai chamar você"><p class="solo-nome-aviso" hidden>Escreva seu nome antes de escolher.</p>';
+  F.insertBefore(w,F.firstChild);
+  var inp=w.querySelector('input'), av=w.querySelector('.solo-nome-aviso'); inp.value=v;
+  function guardar(){try{localStorage.setItem(K,inp.value.trim());}catch(e){}}
+  inp.addEventListener('input',function(){av.hidden=true;guardar();});
+  /* a escolha só vale com nome: a captura chega antes do clique do botão */
+  F.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('[data-forma]'); if(!b) return;
+    if(!inp.value.trim()){ev.preventDefault();ev.stopPropagation();av.hidden=false;inp.focus();} else guardar();},true);
+  window.mosaicoNomeSolo=function(){return inp.value.trim().replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+})();
+</script>
 </body>
 </html>
