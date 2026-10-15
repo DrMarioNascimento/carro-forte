@@ -1,10 +1,13 @@
 # MOSAICO — A Manhã do Carro-Forte · A MESA
 
+> Projeto em testes internos, sem participação externa. Esta versão pertence ao repositório `carro-forte`, separado do Dragon. Consulte o [README principal](../README.md) e a [licença do projeto](../LICENSE.md).
+
+
 ## O que esta pasta é
 
 A Mesa é a partida **coletiva e investigativa** do caso. Ela não é o Captura.
 Aqui não há moeda, vez, carteira nem mercado: o que se administra é interpretação.
-O Captura — economia, mãos e captura de evidência — vive em `../../../jogos/a-manha-do-carro-forte/a-noite/`.
+O Captura — economia, mãos e captura de evidência — vive em `../a-noite/`.
 Após o relatório da Manhã, o botão **Ir para a Noite** continua a sessão com o mesmo código de sala e a mesma pergunta (`?from=celular&sala=&pergunta=`), e grava um **handoff** (fecho, hipótese, fragmentos revelados) em `noite/{sala}.partida.handoff` — a economia do Captura herda esse fecho pela regra v1.1 + semente de fragmentos (ver [README de A Noite](../a-noite/README.md)).
 
 > **A perspectiva muda a pergunta. Não muda o que aconteceu.**
@@ -58,7 +61,7 @@ entrada, e a pauta só é sorteada quando termina ou é pulada.
 Duas telas, dois enquadramentos: o celular do Mestre recebe `AberturaCelular.jpg`; a tela
 grande recebe `AberturaTelão.jpg`. O papel de parede do jogo segue a mesma regra — o hero
 do caso no celular, o papel largo do telão a partir de 900px. Imagem, papel e áudio moram
-numa cópia só, em `../../../jogos/a-manha-do-carro-forte/a-noite/`.
+numa cópia só, em `../a-noite/`.
 
 ## O que a V4 trouxe para esta Mesa
 
@@ -179,7 +182,7 @@ o HUD de partida. Isso é Captura, e Captura é outro jogo.
 | `index.html` | casca da Mesa, HUD, gaveta de regras e navegação entre telas |
 | `styles.css` | identidade visual herdada de A Noite |
 | `game.js` | banco F01–F30, hipóteses H1–H10, relações R-A…R-G, rodízio das perguntas, montagem do dossiê, decisão, revelação e relatório |
-| `opening-flow.js` | abertura audiovisual; gêmeo do arquivo de mesmo nome em `../../../jogos/a-manha-do-carro-forte/a-noite/` |
+| `opening-flow.js` | abertura audiovisual; gêmeo do arquivo de mesmo nome em `../a-noite/` |
 | `fragmentos.js` | banco F01–F30, fonte única lida pela Mesa e pelas três atividades |
 | `atividade.js` / `atividade.css` | núcleo comum das atividades: lote pela URL, colheita de volta, placar e identidade visual |
 | `janela-do-norte.html` | atividade sensorial temporal/espacial |
