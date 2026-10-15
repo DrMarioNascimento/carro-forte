@@ -1,10 +1,13 @@
 # MOSAICO — A Noite · A Manhã do Carro-Forte
 
+> Projeto em testes internos, sem participação externa. Esta versão pertence ao repositório `carro-forte`, separado do Dragon. Consulte o [README principal](../README.md) e a [licença do projeto](../LICENSE.md).
+
+
 Primeira implementação do **Captura** como versão noturna de **A Manhã do Carro-Forte**.
 
 **Entrada:** `index.html`
 
-**URL:** https://drmarionascimento.github.io/Dragon/jogos/a-manha-do-carro-forte/a-noite/
+**URL:** https://carro-forte.dragongames.dev.br/a-noite/
 
 ## Continuidade Manhã → Noite (Noite rica)
 
@@ -94,7 +97,7 @@ Os valores econômicos da entrada **avulsa** continuam **experimentais**. Na **N
 
 ## Identidade visual
 
-A Noite reutiliza a linguagem de **A Mesa — A Manhã do Carro-Forte**: azul-petróleo, cinza, papel, ouro velho, vermelho de risco, garoa e a imagem `jogos/a-manha-do-carro-forte/a-mesa/assets/carro-forte-hero.png` como base atmosférica.
+A Noite reutiliza a linguagem de **A Mesa — A Manhã do Carro-Forte**: azul-petróleo, cinza, papel, ouro velho, vermelho de risco, garoa e a imagem `../a-mesa/assets/carro-forte-hero.png` como base atmosférica.
 
 A interface é mobile-first e mantém o padrão MOSAICO de **caixas e botões com profundidade física**: borda, luz interna, sombra de base e deslocamento ao pressionar.
 
@@ -105,6 +108,6 @@ Os ambientes internos do banco ainda poderão receber imagens próprias posterio
 - `index.html` — telas e estrutura;
 - `styles.css` — identidade visual, profundidade, mobile e responsividade;
 - `game.js` / `game-fixed.js` — perguntas, mãos, economia (standalone ou herdada do handoff), captura, risco e cronômetro;
-- `../../../jogos/a-manha-do-carro-forte/a-mesa/celular-para-noite.js` (+ `celular-para-noite-contrato.mjs`) — ponte Manhã→Noite, schema do handoff e regra v1.1 de economia + semente de fragmentos.
+- `../a-mesa/celular-para-noite.js` (+ `celular-para-noite-contrato.mjs`) — ponte Manhã→Noite, schema do handoff e regra v1.1 de economia + semente de fragmentos.
 
 **Prof. Mário César Nascimento, PhD ©**
