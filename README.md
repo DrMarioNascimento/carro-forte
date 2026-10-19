@@ -1,5 +1,9 @@
 # A Manhã do Carro-Forte · Dragon Games
 
+## Situação atual — 19 de outubro de 2026
+
+A manutenção de A Mesa, O Impostor e A Noite ocorre neste repositório próprio. O portal Dragon conserva referências e compatibilidade da organização anterior. Use o domínio definido em [CNAME](CNAME); para configuração das salas, confira a entrada de cada versão e seus serviços Firebase. O comando `npm test` verifica caminhos, sem substituir uma partida completa.
+
 ## Desenvolvimento e acesso
 
 Os jogos estão em diferentes etapas de desenvolvimento, teste e aperfeiçoamento e ainda não foram lançados ao público. Nesta fase, os testes são realizados internamente, sem participação externa.
