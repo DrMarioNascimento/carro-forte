@@ -1,6 +1,14 @@
 # A Manhã do Carro-Forte · Dragon Games
 
-## Situação atual — 19 de outubro de 2026
+## Disponibilidade e novidades — 24 de outubro de 2026
+
+**A Manhã do Carro-Forte permanece em testes fechados.** A página de apresentação não constitui liberação geral da atividade. A condução e a participação seguem os controles e convites do projeto. A abertura pública do Eita! e dos recursos educacionais do portfólio não altera este estágio nem as condições de uso desta obra.
+
+Mantida a autoria conjunta de **Mário César Nascimento e Osana Melo Nascimento**.
+
+[Ver todos os recursos públicos](https://www.drmarionascimento.com.br/#acesso-publico). O acesso respeita [LICENSE.md](LICENSE.md).
+
+## Contexto técnico — registro de 19 de outubro de 2026
 
 A manutenção de A Mesa, O Impostor e A Noite ocorre neste repositório próprio. O portal Dragon conserva referências e compatibilidade da organização anterior. Use o domínio definido em [CNAME](CNAME); para configuração das salas, confira a entrada de cada versão e seus serviços Firebase. O comando `npm test` verifica caminhos, sem substituir uma partida completa.
 
