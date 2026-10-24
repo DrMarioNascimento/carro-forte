@@ -1715,7 +1715,7 @@ $('#sairRA').onclick=function(){$('#telaRA').hidden=true;pecaAberta=null;pintarP
 
 /* As peças da aba RA: só a planta abre no prólogo. As outras ganham nome
    quando o capítulo chega nelas (nenhum título antecipa o caso). */
-var PECAS=[{id:'planta',cap:0,nome:'A planta de evacuação',sub:'A agência 0688',ico:'🗺️'},{id:'maquete',cap:1,nome:'A maquete da agência',sub:'Abre no Capítulo 1',ico:'🏛️'}].concat([1,2,3,4,5,6,7,8].map(function(c){return {id:'c'+c,cap:c,nome:'Peça do Capítulo '+c,sub:'Abre quando o capítulo chegar nela',ico:'🔒'}}));
+var PECAS=[{id:'planta',cap:0,nome:'A planta de evacuação',sub:'A agência 0688',ico:'🗺️'},{id:'maquete',cap:1,nome:'A maquete da agência',sub:'Abre no Capítulo 1',ico:'🏛️'}].concat([1,2,3,4,5,6,7,8].map(function(c){return {id:'c'+c,cap:c,nome:'Peça do Capítulo '+c,sub:'Abre quando o capítulo chegar nela',ico:'<img src="../assets/icons/locks/closed-white.png" alt="" aria-hidden="true" style="display:inline-block;width:2.1em;height:2.1em;max-width:none;object-fit:contain;vertical-align:middle;flex-shrink:0">'}}));
 function pintarPecas(){$('#gradeRA').innerHTML=PECAS.map(function(p){var tr=!(p.cap===0||p.aberta);
   return '<button class="peca'+(tr?' trancada':'')+'" data-peca="'+p.id+'"><span class="ico">'+p.ico+'</span><small>'+(p.cap?'CAPÍTULO '+p.cap:'PRÓLOGO')+'</small><b>'+p.nome+'</b><span>'+p.sub+'</span></button>'}).join('');
   document.querySelectorAll('[data-peca]').forEach(function(b){b.onclick=function(){if(b.dataset.peca==='planta')abrirPlanta();if(b.dataset.peca==='c1')abrirMalote()}})}
