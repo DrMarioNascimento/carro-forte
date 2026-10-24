@@ -43,7 +43,9 @@ three.js e o motor de RA usado pela maquete do Impostor).
 Firebase: projetos `mosaico-noite` (Mesa e Noite) e `o-impostor-carro-forte` (Impostor) — os mesmos de antes.
 O domínio `carro-forte.dragongames.dev.br` precisa estar em *Authentication → Domínios autorizados* nos dois.
 
-Testes: `npm test` (integridade dos caminhos).
+Testes: `npm test` (integridade dos caminhos e preservação dos convites).
+
+Revisão de 24/10/2026: a entrada `/a-mesa/?sala=…` encaminha o participante para `celular.html` conservando todos os parâmetros e o fragmento do convite. Sem convite, permanece a escolha entre jogo e telão. Os controles de acesso não foram alterados.
 
 ## Autoria e licença
 
