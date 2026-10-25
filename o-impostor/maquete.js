@@ -19,7 +19,7 @@
 
   var BASE = (function () { var s = document.currentScript && document.currentScript.src; return s ? s.replace(/[^/]*$/, '') : ''; })();
   var V1 = BASE + '../comum/js/';
-  var SCRIPTS = [V1 + 'three.min.js', BASE + 'ra-textos-volume.js?v=volume-20261025-auditoria', V1 + 'vendor/GLTFLoader.js', V1 + 'vendor/OrbitControls.js', V1 + 'ac-ra.js', V1 + 'ac-maquete-ra.js'];
+  var SCRIPTS = [V1 + 'three.min.js', BASE + 'ra-textos-volume.js?v=volume-20261025-auditoria', V1 + 'vendor/GLTFLoader.js', V1 + 'vendor/OrbitControls.js', V1 + 'ac-ra.js', V1 + 'ac-maquete-ra.js', BASE + 'agencia-viva.js?v=movimento-20261026'];
   var MODELO = BASE + 'modelos/agencia-0688-base.glb';
   /* 07/10: o malote de perto do designer (sem as etiquetas e sem a cinta do envio extra; ver preparar-malote.mjs) */
   var MALOTE_PERTO = BASE + 'modelos/malote-perto.glb', malotePronto = null;
@@ -163,6 +163,8 @@
       modelo.scale.setScalar(1 / LARGURA);
       modelo.position.set(-CENTRO.x / LARGURA, 0, -CENTRO.z / LARGURA);
       raiz.add(modelo);
+      /* 26/10/2026: a manhã viva — carro-forte ligado, farmácia, vapor da padaria, pombos (agencia-viva.js) */
+      modelo.updateMatrixWorld(true); if (global.AgenciaViva) viva = AgenciaViva.criar(modelo);
       if (opcoes.malote) setTimeout(prepararMalote, 1500);
       modelo.traverse(function (o) { if (o.isMesh) { o.frustumCulled = true; if (o.material && o.material.name === 'vidro') o.material.depthWrite = false; } });
       mostrarAndar(false);
@@ -384,13 +386,14 @@
     controles.target.set(0.046, 0.02, -0.016); camera.position.set(-0.05, 0.8, 0.48); controles.update();
   }
 
-  var antes = 0;
+  var antes = 0, viva = null;
   function desenhar(tempo, quadroXR) {
     var t = tempo || performance.now(), dt = Math.min(0.05, (t - (antes || t)) / 1000); antes = t; relogio += dt;
     if (ra) ra.atualizar(dt, quadroXR);
     var est = ra && ra.estado();
     if (est && est.modo === 'ra') cena.background = null;
     else if (!cena.background) cena.background = new global.THREE.Color(0x0b1520);
+    if (viva && !emPerto && !emPeca) viva.update(dt);
     pinos.forEach(function (p, i) { var l = p.children[0]; l.position.y = Math.sin(relogio * 2.2 + i) * 0.22; l.rotation.y += dt * 1.2; });
     if (realce && relogio - realce.userData.nasceu > 2.4) { cena.remove(realce); realce = null; }
     if (controles && controles.enabled) controles.update();
