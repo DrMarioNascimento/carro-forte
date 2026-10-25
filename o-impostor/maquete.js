@@ -19,7 +19,7 @@
 
   var BASE = (function () { var s = document.currentScript && document.currentScript.src; return s ? s.replace(/[^/]*$/, '') : ''; })();
   var V1 = BASE + '../comum/js/';
-  var SCRIPTS = [V1 + 'three.min.js', BASE + 'ra-textos-volume.js?v=volume-20261025-auditoria', V1 + 'vendor/GLTFLoader.js', V1 + 'vendor/OrbitControls.js', V1 + 'ac-ra.js?v=android-20261025', V1 + 'ac-maquete-ra.js', BASE + 'agencia-viva.js?v=movimento-20261026', BASE + 'guia-ra.js?v=guia-20261026'];
+  var SCRIPTS = [V1 + 'three.min.js', BASE + 'ra-textos-volume.js?v=volume-20261025-auditoria', V1 + 'vendor/GLTFLoader.js', V1 + 'vendor/OrbitControls.js', V1 + 'ac-ra.js?v=android-loja-20261025', V1 + 'ac-maquete-ra.js', BASE + 'agencia-viva.js?v=movimento-20261026', BASE + 'guia-ra.js?v=guia-20261026'];
   var MODELO = BASE + 'modelos/agencia-0688-base.glb';
   /* 07/10: o malote de perto do designer (sem as etiquetas e sem a cinta do envio extra; ver preparar-malote.mjs) */
   var MALOTE_PERTO = BASE + 'modelos/malote-perto.glb', malotePronto = null;
