@@ -163,7 +163,7 @@
       modelo.scale.setScalar(1 / LARGURA);
       modelo.position.set(-CENTRO.x / LARGURA, 0, -CENTRO.z / LARGURA);
       raiz.add(modelo);
-      /* 26/10/2026: a manhã viva — carro-forte ligado, farmácia, vapor da padaria, pombos (agencia-viva.js) */
+      /* 25/10/2026: a manhã viva — carro-forte ligado, farmácia, vapor da padaria, pombos (agencia-viva.js) */
       modelo.updateMatrixWorld(true); if (global.AgenciaViva) viva = AgenciaViva.criar(modelo);
       if (opcoes.malote) setTimeout(prepararMalote, 1500);
       modelo.traverse(function (o) { if (o.isMesh) { o.frustumCulled = true; if (o.material && o.material.name === 'vidro') o.material.depthWrite = false; } });
@@ -773,7 +773,7 @@
       aplicarItens();
       redimensionar();
       renderer.setAnimationLoop(desenhar);
-      /* 26/10/2026: na primeira vez neste aparelho, o que é cada coisa na tela (guia-ra.js) */
+      /* 25/10/2026: na primeira vez neste aparelho, o que é cada coisa na tela (guia-ra.js) */
       if (global.GuiaRA) GuiaRA.mostrar('carro-forte-maquete', [
         { alvo: '#maqPalco', txt: 'Arraste para girar a agência; com dois dedos, aproxime. Toque numa sala para ver o que há nela.' },
         { alvo: '#maqAndar', txt: 'Este botão tira o telhado e mostra o andar de cima.' },

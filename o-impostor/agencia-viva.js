@@ -1,6 +1,6 @@
 /* A agência 0688 numa terça de garoa, às 7h47 (three.js).
 
-   26/10/2026 (Mario: "movimento, ação onde couber, o máximo… que tenha
+   25/10/2026 (Mario: "movimento, ação onde couber, o máximo… que tenha
    relação com a história"). A manhã não tem tempestade nem sol marcado, e a
    chuva fica de fora da maquete: em dia de chuva a lingueta da porta lateral
    não trava sozinha, e água animada perto dela seria dica. O que entra é o
