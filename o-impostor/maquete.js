@@ -19,7 +19,7 @@
 
   var BASE = (function () { var s = document.currentScript && document.currentScript.src; return s ? s.replace(/[^/]*$/, '') : ''; })();
   var V1 = BASE + '../comum/js/';
-  var SCRIPTS = [V1 + 'three.min.js', BASE + 'ra-textos-volume.js?v=volume-20261025-auditoria', V1 + 'vendor/GLTFLoader.js', V1 + 'vendor/OrbitControls.js', V1 + 'ac-ra.js?v=wifi-20261102', V1 + 'ac-maquete-ra.js', BASE + 'agencia-viva.js?v=movimento-20261026', BASE + 'guia-ra.js?v=guia-20261026'];
+  var SCRIPTS = [V1 + 'three.min.js', BASE + 'ra-textos-volume.js?v=volume-20261025-auditoria', V1 + 'vendor/GLTFLoader.js', V1 + 'vendor/OrbitControls.js', V1 + 'ac-ra.js?v=wifi-20261102', V1 + 'ac-maquete-ra.js', BASE + 'agencia-viva.js?v=movimento-20261026', BASE + 'guia-ra.js?v=assistencia-20261103'];
   var MODELO = BASE + 'modelos/agencia-0688-base.glb';
   /* 07/10: o malote de perto do designer (sem as etiquetas e sem a cinta do envio extra; ver preparar-malote.mjs) */
   var MALOTE_PERTO = BASE + 'modelos/malote-perto.glb', malotePronto = null;
@@ -777,7 +777,7 @@
       if (global.GuiaRA) GuiaRA.mostrar('carro-forte-maquete', [
         { alvo: '#maqPalco', txt: 'Arraste para girar a agência; com dois dedos, aproxime. Toque numa sala para ver o que há nela.' },
         { alvo: '#maqAndar', txt: 'Este botão tira o telhado e mostra o andar de cima.' },
-        { alvo: '#maqRA', txt: 'Pôr na mesa abre a câmera e coloca a maquete sobre a sua mesa.' },
+        { alvo: '#maqRA', semAlvoOk: true, txt: 'Use Pôr na mesa, quando disponível, e autorize a câmera. Procure uma superfície plana com luz e mova o celular devagar. Sem câmera, continue explorando em 3D na tela.' },
         { alvo: '#maqSair', txt: 'Por aqui você volta para a mesa do jogo quando quiser.' }
       ]);
     }).catch(function (e) {
@@ -786,6 +786,7 @@
     });
   }
   function fechar() {
+    if (global.GuiaRA) global.GuiaRA.fechar();
     ativo = false;
     if (emPerto) sairPerto(true);
     if (emPeca) sairPeca(true);

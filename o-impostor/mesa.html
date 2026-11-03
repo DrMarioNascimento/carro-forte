@@ -869,7 +869,7 @@ button:active,.caixa:active,.redondo:active,.chip:active{
 /* o ícone das peças da RA fica no canto de cima: o título longo (três linhas) subia por baixo dele */
 .peca{padding-top:48px}
 </style>
-</head>
+<script src="../assistencia-telas.js?v=assistencia-20261103"></script></head>
 <body>
 <div class="scene" aria-hidden="true"></div>
 <div class="rain" aria-hidden="true"></div>
@@ -1424,7 +1424,7 @@ function digitar(el,html,vel,depois){
   if(el._parar)el._parar();var i=0,parar=false;el.classList.add('digitando');el.textContent='';el._parar=function(){parar=true};
   function fim(){if(parar)return;parar=true;el.classList.remove('digitando');el.innerHTML=html;el.removeEventListener('click',fim);if(depois)depois()}
   el.addEventListener('click',fim);
-  (function passo(){if(parar)return;i+=1+(txt.charCodeAt(i)===32?1:0);el.textContent=txt.slice(0,i);var r=$('#chatGrupo');if(el.closest&&el.closest('#chatGrupo'))r.scrollTop=r.scrollHeight;
+  (function passo(){if(parar)return;i+=1+(txt.charCodeAt(i)===32?1:0);el.textContent=txt.slice(0,i);var r=$('#chatGrupo');if(el.closest&&el.closest('#chatGrupo'))if(r.scrollHeight-r.clientHeight-r.scrollTop<80)r.scrollTop=r.scrollHeight;
     if(i>=txt.length){fim();return}setTimeout(passo,(vel||22)+Math.random()*14)})();
   return fim}
 
@@ -1474,12 +1474,16 @@ function bolha(m){
   var quem=eu?'':'<button class="quem" data-contato="'+m.de+'" style="color:'+CORES[m.de]+'">'+nomeDe(m.de)+'</button>';
   var anexo=m.anexo?'<div class="anexo"'+(m.img?' data-ver="'+m.img+'" data-nome="'+m.anexo+'" style="cursor:pointer"':'')+'>📎 '+m.anexo+(m.img?' · ver':'')+'</div>':'';
   return '<div class="msg'+(eu?' eu':'')+'"><div class="bolha'+(m.marca?' marcada':'')+'" data-mid="'+idMsg(m)+'">'+quem+(m.txt||'')+anexo+'<span class="hora">'+(m.h||hora())+'</span></div></div>'}
-function pintarGrupo(){
+
+// Só acompanha novas mensagens se a pessoa já estava perto do fim.
+function posicaoLeitura(el,chave){var mudou=chave!==undefined&&el.dataset.conversaAnterior!==String(chave);if(chave!==undefined)el.dataset.conversaAnterior=String(chave);return {top:el.scrollTop,fim:mudou||el.scrollHeight-el.clientHeight-el.scrollTop<80};}
+function restaurarLeitura(el,p){el.scrollTop=p.fim?el.scrollHeight:p.top;}
+function pintarGrupo(){var posLeitura=posicaoLeitura($('#chatGrupo'));
   $('#grupoTopo').innerHTML='Custódia · Agência 0688 · <b>'+NUMEROS.length+' números</b>';
   var el=$('#chatGrupo');el.innerHTML=grupo.map(bolha).join('');
   /* a última fala do narrador que ainda não correu na tela é digitada */
   grupo.forEach(function(m){if(m.sis&&!m.digitada){m.digitada=true;var alvo=el.querySelector('[data-mid="'+m._id+'"]');if(alvo){var hh=m.hh?'<span class="hh">'+m.hh+'</span>':'';digitar(alvo,hh+m.sis,20)}}});
-  el.scrollTop=el.scrollHeight}
+  restaurarLeitura(el,posLeitura)}
 function narrar(txt,hh){grupo.push({sis:T(txt),hh:hh});if(aba==='grupo')pintarGrupo();else{glow('grupo',true);grupo[grupo.length-1].digitada=false}}
 /* Decisão 2 (grupo): a fala pronta de um personagem que está com um humano sai como
    narração, nunca como mensagem do número dele; a do próprio jogador vira "Você disse". */
@@ -1498,7 +1502,7 @@ function pintarListaPriv(){
   $('#nPriv').hidden=!total;$('#nPriv').textContent=total;glow('privadas',total>0&&aba!=='privadas')}
 function abrirPriv(f){if(!privadas[f])privadas[f]={nao:0,msgs:[]};abertaPriv=f;privadas[f].nao=0;$('#listaPriv').hidden=true;$('#convPriv').hidden=false;
   $('#convNome').innerHTML=nomeDe(f);$('#convAvatar').innerHTML=SIL;$('#convNome').style.color=CORES[f];pintarConv();pintarListaPriv()}
-function pintarConv(){var el=$('#chatPriv');el.innerHTML=privadas[abertaPriv].msgs.map(bolha).join('')||'<div class="dia">CONVERSA PRIVADA</div>';el.scrollTop=el.scrollHeight}
+function pintarConv(){var posLeitura=posicaoLeitura($('#chatPriv'),abertaPriv);var el=$('#chatPriv');el.innerHTML=privadas[abertaPriv].msgs.map(bolha).join('')||'<div class="dia">CONVERSA PRIVADA</div>';restaurarLeitura(el,posLeitura)}
 $('#voltarPriv').onclick=function(){abertaPriv=null;$('#convPriv').hidden=true;$('#listaPriv').hidden=false;pintarListaPriv()};
 function chegaPrivada(id,txt){if(!presente(id)||id===EU_PAPEL)return;var f=SLOT_DE[id];if(!privadas[f])privadas[f]={nao:0,msgs:[]};
   /* SUBSTITUIDO 09/10 (Mario): personagem humano e do sistema aparecem iguais na tela; o jogador não distingue. Antes: MP&&MP_HUM[id]?{sis:'...escreveu só para você...'}:{de:...} */
@@ -3728,7 +3732,7 @@ var cab=document.getElementById('convAvatar'),nome=document.getElementById('conv
 var obs=new MutationObserver(varrer);obs.observe(document.body,{childList:true,subtree:true});varrer()})();
 </script>
 <audio id="somRadio" src="media/radio-estatica.mp3" preload="auto"></audio>
-<script src="maquete.js?v=wifi-20261102"></script>
+<script src="maquete.js?v=assistencia-20261103"></script>
 <!-- 15/10/2026: entrada padronizada no solo — nome + Bem-vindo/Bem-vinda/Tanto faz, como na sala do grupo -->
 <style>.solo-nome{display:block;margin:0 0 14px;text-align:left}.solo-nome span{display:block;margin-bottom:6px;font:700 12px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;opacity:.85}.solo-nome input{box-sizing:border-box;width:100%;min-height:48px;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.45);color:inherit;font:600 17px/1.2 system-ui,sans-serif}.solo-nome-aviso{margin:6px 0 0;color:#ffb4a4;font:600 14px/1.3 system-ui,sans-serif}.solo-nome-aviso[hidden]{display:none}</style>
 <script>
@@ -3747,5 +3751,5 @@ var obs=new MutationObserver(varrer);obs.observe(document.body,{childList:true,s
   window.mosaicoNomeSolo=function(){return inp.value.trim().replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
 })();
 </script>
-</body>
+<script defer src="../caminho-ra.js?v=assistencia-20261103" data-guia="impostor" data-jogo="carro"></script></body>
 </html>

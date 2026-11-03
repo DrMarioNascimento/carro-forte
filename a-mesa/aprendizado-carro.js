@@ -33,7 +33,7 @@
 
   var PASSOS = [
     { id: "m-intro-mestre", rot: "Você abre a mesa",
-      txt: "A tela vai se explicar aos poucos, cada coisa na hora em que aparecer; nada aqui segura o jogo. Escolha o tempo de cada atividade e a duração, e toque em Começar a investigação.",
+      txt: "A ajuda explica uma tela por vez. Use Próximo e Voltar; Agora não recolhe a ajuda, e você pode revê-la depois. Escolha o tempo de cada atividade e a duração, e toque em Começar a investigação.",
       quando: function () { return tela() === "intro" && mestre() && visivel("#chooseGame"); },
       alvo: function () { return el("#chooseGame"); } },
     { id: "m-intro-convidado", rot: "Quem abre é o Mestre",
@@ -87,6 +87,25 @@
       txt: "Os custos e as ações ficam no ⓘ, a qualquer momento.",
       quando: function () { return visivel("#infoBtn") && !visivel("#enterBtn"); }, alvo: function () { return el("#infoBtn"); }, feito: true }
   ];
+
+
+  // Percurso v2: ajuda reversível e sem avanço por tempo ou rolagem automática.
+  if (global.AssistenciaTela) {
+    var ajuda = global.AssistenciaTela;
+    function atualizarAjuda() {
+      if (document.hidden) return;
+      if (!(st()) || visivel('#dragonRoomGate') || visivel('#abertura') || visivel('#abCasa') || visivel('#mosaicoOpening') || visivel('#mosaicoPrep') || visivel('iframe') || visivel('dialog[open]') || visivel('.modal-fundo')) { ajuda.suspender('aprendizado'); return; }
+      var disponiveis = PASSOS.filter(function(p) { try { return p.quando(); } catch (_) { return false; } });
+      disponiveis.sort(function(a,b){return Number(!!a.geral)-Number(!!b.geral);});
+      if(!disponiveis.length) { ajuda.suspender('aprendizado'); return; }
+      ajuda.definir('CarroAprendizado:'+tela()+':'+disponiveis.map(function(p){return p.id;}).join(','), disponiveis,
+        {titulo:disponiveis[0].rot.replace(/[🔎🗂]/gu,''),dono:'aprendizado',automatico:!disponiveis[0].alto});
+    }
+    setInterval(atualizarAjuda,700); atualizarAjuda();
+    global.CarroAprendizado = {passos:function(){return PASSOS.map(function(p){return p.id;});},atual:ajuda.atual,
+      vistos:function(){return [];},zerar:function(){var id=ajuda.atual();if(id)ajuda.esquecer(id);ajuda.rever();}};
+    return;
+  }
 
   var css = document.createElement("style");
   css.textContent =
